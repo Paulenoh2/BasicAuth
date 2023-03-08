@@ -14,7 +14,7 @@ import java.util.Optional;
 public class UserController {
 
     @Autowired
-    UserClassService userClassService;
+   private UserClassService userClassService;
 
 
 
@@ -31,8 +31,11 @@ public String addNewUser(@RequestBody UserClass userClass){
 }
 
 @PutMapping("/edit")
+@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 public UserClass update (@RequestBody UserClass userClass){
-    return userClassService.updateUser(userClass);
+   return userClassService.updateUser(userClass);
+
+
 }
 
 @GetMapping ("/all")
@@ -41,14 +44,16 @@ public UserClass update (@RequestBody UserClass userClass){
     return userClassService.getAllUsers();
 }
 
-@GetMapping ("/{id}")
+@GetMapping ("/get/{id}")
 @PreAuthorize("hasAuthority('ROLE_USER')")
 public Optional<UserClass> getById(@PathVariable Integer id){
-    return userClassService.getUserById(id);
+    Optional<UserClass> getUser = userClassService.getUserById(id);
+    return getUser;
 }
 
-@GetMapping ("/delete/{id}")
-    public  String  deleteByUser(@PathVariable Integer id){
+@DeleteMapping  ("/delete/{id}")
+@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public  String  deleteByUserId (@PathVariable Integer id){
     userClassService.deleteUseById(id);
     return "delete was succesfull";
 }

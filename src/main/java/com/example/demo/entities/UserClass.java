@@ -21,8 +21,11 @@ public class UserClass {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "full_names")
-    private String name;
+    @Column(name = "firstName")
+    private String firstName;
+
+    @Column(name = "lastName")
+    private String lastName;
      @Column(name = "username")
     private String username;
     @Column (name = "password")

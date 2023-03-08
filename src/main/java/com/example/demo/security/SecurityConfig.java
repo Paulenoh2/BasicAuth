@@ -33,11 +33,12 @@ public class SecurityConfig {
         return  http
                .csrf()
                 .disable()
-                .authorizeHttpRequests().requestMatchers("/api/welcome","/api/new").permitAll()
+                .authorizeHttpRequests().requestMatchers("/api/new","/api/welcome").permitAll()
+                //.authorizeHttpRequests().requestMatchers("/api/edit","/api/delete/{id}","/api/new","/api/get/{id}","/api/all").permitAll()
                 .and()
-
-                .authorizeHttpRequests().requestMatchers("/api/**").authenticated()
-                .and().formLogin().and().build();
+                .authorizeHttpRequests().requestMatchers("/api/all","/api/get/{id}","/api/delete/{id}","/api/edit").authenticated()
+                .and()
+                .formLogin().and().build();
 
     }
 
